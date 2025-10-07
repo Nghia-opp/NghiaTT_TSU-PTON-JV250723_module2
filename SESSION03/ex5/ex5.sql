@@ -1,0 +1,77 @@
+CREATE DATABASE TMDT2;
+USE TMDT2;
+
+CREATE TABLE DanhMuc(
+	MaDM INT PRIMARY KEY AUTO_INCREMENT,
+    TenDM VARCHAR(50) UNIQUE
+);
+
+CREATE TABLE SanPham(
+	MaSP INT PRIMARY KEY AUTO_INCREMENT,
+    TenSP VARCHAR(50) unique,
+    Gia  FLOAT CHECK(Gia > 0),
+    MaDM INT,
+    FOREIGN KEY (MaDM) REFERENCES DanhMuc(MaDM)
+);
+
+CREATE TABLE KhachHang(
+	MaKH INT PRIMARY KEY AUTO_INCREMENT,
+    TenKH VARCHAR(50) NOT NULL,
+    Email VARCHAR(50) NOT NULL UNIQUE
+);
+
+CREATE TABLE DonHang(
+	MaDH INT PRIMARY KEY AUTO_INCREMENT,
+    MaKH INT,
+    NgayDat DATE,
+    FOREIGN KEY (MaKH) REFERENCES KhachHang(MaKH)
+);
+
+-- bang trung gian
+CREATE TABLE ChiTietDonHang(
+	MaDH INT,
+    MaSP INT,
+    FOREIGN KEY (MaDH) REFERENCES DonHang(MaDH),
+    FOREIGN KEY (MaSP) REFERENCES SanPham(MaSP),
+    SoLuong INT 
+);
+
+INSERT INTO DanhMuc(TenDM) VALUES 
+('Quan'),
+('Ao');
+
+SELECT * FROM DanhMuc;
+
+INSERT INTO SanPham(TenSP,Gia,MaDM) VALUES 
+('Ao khoac da',100,2),
+('Ao balo',50,2),
+('Quan JEAN',150,1);
+
+SELECT * FROM SanPham;
+
+SELECT * FROM SanPham WHERE MaDM = 1;
+
+INSERT INTO KhachHang(TenKH,Email) VALUES
+('HOA','hoand@gmail.com'),
+('HUNG','hungbd@gmail.com');
+
+SELECT * FROM KhachHang;
+
+INSERT INTO DonHang (MaKH,NgayDat) VALUES 
+(1,'2025-10-02'),
+(2,'2025-09-28'),
+(1,'2025-10-03');
+
+SELECT * FROM DonHang;
+
+INSERT INTO ChiTietDonHang (MaDH,MaSP,SoLuong) VALUES 
+(1,1,2),
+(2,2,1),
+(3,3,1);
+
+SELECT * FROM DanhMuc;
+SELECT * FROM SanPham;
+SELECT * FROM KhachHang;
+SELECT * FROM DonHang;
+SELECT * FROM ChiTietDonHang;
+ 

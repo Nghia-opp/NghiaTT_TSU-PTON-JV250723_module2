@@ -1,0 +1,30 @@
+CREATE DATABASE TMDT;
+USE TMDT;
+
+CREATE TABLE DanhMuc(
+	MaDM INT PRIMARY KEY AUTO_INCREMENT,
+    TenDM VARCHAR(50) UNIQUE
+);
+
+CREATE TABLE SanPham(
+	MaSP INT PRIMARY KEY AUTO_INCREMENT,
+    TenSP VARCHAR(50) unique,
+    Gia  FLOAT CHECK(Gia > 0),
+    MaDM INT,
+    FOREIGN KEY (MaDM) REFERENCES DanhMuc(MaDM)
+);
+
+INSERT INTO DanhMuc(TenDM) VALUES 
+('Quan'),
+('Ao');
+
+SELECT * FROM DanhMuc;
+
+INSERT INTO SanPham(TenSP,Gia,MaDM) VALUES 
+('Ao khoac da',100,2),
+('Ao balo',50,2),
+('Quan JEAN',150,1);
+
+SELECT * FROM SanPham;
+
+SELECT * FROM SanPham WHERE MaDM = 1;
